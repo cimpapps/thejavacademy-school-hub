@@ -40,4 +40,3 @@ buildNumber.properties
 **/.idea
 *.iml
 data
-!/data/
