@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         } catch (RuntimeException ex) {
             throw new UserServiceException(UserServiceException.ExceptionType.SERVER_ERROR);
         }
-
     }
 
     @Override
