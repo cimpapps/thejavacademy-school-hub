@@ -97,9 +97,10 @@ services:
 
 
 
-  mysql-service:
+  mysql:
     image: mysql
     restart: always
+    container_name: mysql
     environment:
       MYSQL_USER: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
