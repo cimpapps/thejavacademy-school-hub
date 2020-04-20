@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 
 import java.util.Optional;
 
-public interface UserStorageManager {
+public interface UserStorageAdapter {
     SearchUserResponse searchUser(String term, PageRequest pageRequest);
 
     SearchUserResponse getUserFriends(String id);

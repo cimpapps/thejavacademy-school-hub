@@ -17,12 +17,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
@@ -33,8 +30,8 @@ class UserServiceGetFriendsTest {
     @TestConfiguration
     static class TestConfig {
         @Bean
-        public UserService userService(UserStorageManager userStorageManager) {
-            return new UserServiceImpl(userStorageManager);
+        public UserService userService(UserStorageAdapter userStorageAdapter) {
+            return new UserServiceImpl(userStorageAdapter);
         }
     }
 
@@ -42,37 +39,37 @@ class UserServiceGetFriendsTest {
     UserService userService;
 
     @MockBean
-    UserStorageManager userStorageManager;
+    UserStorageAdapter userStorageAdapter;
 
 
     @Test
     public void givenStorageManagerReturnsEmptyFriends_whenGetFriends_expectedEmptyResponse() {
-        given(userStorageManager.getUserById("A")).willReturn(Optional.of(new User()));
+        given(userStorageAdapter.getUserById("A")).willReturn(Optional.of(new User()));
         final SearchUserResponse expected = new SearchUserResponse();
-        given(userStorageManager.getUserFriends("A")).willReturn(expected);
+        given(userStorageAdapter.getUserFriends("A")).willReturn(expected);
         assertEquals(expected, userService.getFriends("A"));
     }
 
     @Test
     public void testGetFriends() {
         final SearchUserResponse expectedFriends = buildSearchUserResponse(5);
-        given(userStorageManager.getUserById("A")).willReturn(Optional.of(new User()));
-        given(userStorageManager.getUserFriends("A")).willReturn(expectedFriends);
+        given(userStorageAdapter.getUserById("A")).willReturn(Optional.of(new User()));
+        given(userStorageAdapter.getUserFriends("A")).willReturn(expectedFriends);
         final SearchUserResponse actualFriends = userService.getFriends("A");
         Assertions.assertEquals(actualFriends, expectedFriends);
     }
 
     @Test
     public void givenWronUserID_whenGetFriends_ExpectedThrownUserNotFound() {
-        given(userStorageManager.getUserById("A")).willReturn(Optional.empty());
+        given(userStorageAdapter.getUserById("A")).willReturn(Optional.empty());
         assertThrowsType(UserServiceException.ExceptionType.USER_NOT_FOUND, () -> userService.getFriends("A"));
     }
 
 
     @Test
     public void givenStorageManagerThrowsRuntimeException_whenGetFriends_expectedThrownUserServiceException() {
-        given(userStorageManager.getUserById("A")).willReturn(Optional.of(new User()));
-        given(userStorageManager.getUserFriends("A")).willThrow(new RuntimeException());
+        given(userStorageAdapter.getUserById("A")).willReturn(Optional.of(new User()));
+        given(userStorageAdapter.getUserFriends("A")).willThrow(new RuntimeException());
         assertThrowsType(UserServiceException.ExceptionType.SERVER_ERROR, () -> userService.getFriends("A"));
     }
 

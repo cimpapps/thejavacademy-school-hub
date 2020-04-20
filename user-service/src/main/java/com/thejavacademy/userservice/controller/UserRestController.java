@@ -38,4 +38,6 @@ public class UserRestController {
         return ResponseEntity.ok(userService.getFriends(id));
     }
 
+
+
 }

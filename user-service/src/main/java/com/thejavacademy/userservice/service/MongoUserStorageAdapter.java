@@ -1,17 +1,15 @@
 package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
-import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
 import com.thejavacademy.userservice.repo.UserRepo;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class MongoUserStorageManager implements UserStorageManager {
+public class MongoUserStorageAdapter implements UserStorageAdapter {
 
     private UserRepo userRepo;
 

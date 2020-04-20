@@ -13,16 +13,16 @@ import static com.thejavacademy.userservice.exception.UserServiceException.Excep
 public class UserServiceImpl implements UserService {
 
 
-    private UserStorageManager userStorageManager;
+    private UserStorageAdapter userStorageAdapter;
 
-    public UserServiceImpl(UserStorageManager userStorageManager) {
-        this.userStorageManager = userStorageManager;
+    public UserServiceImpl(UserStorageAdapter userStorageAdapter) {
+        this.userStorageAdapter = userStorageAdapter;
     }
 
     @Override
     public SearchUserResponse searchUser(String term, int page, int limit) {
         PageRequest pageRequest = PageRequest.of(page, limit);
-        return userStorageManager.searchUser(term, pageRequest);
+        return userStorageAdapter.searchUser(term, pageRequest);
     }
 
     @Override
@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
         if (id == null || id.isBlank()) {
             throw new UserServiceException(EMTPY_USER_ID);
         }
-        userStorageManager.getUserById(id).orElseThrow(() -> new UserServiceException(USER_NOT_FOUND));
+        userStorageAdapter.getUserById(id).orElseThrow(() -> new UserServiceException(USER_NOT_FOUND));
         try {
-            return userStorageManager.getUserFriends(id);
+            return userStorageAdapter.getUserFriends(id);
         } catch (RuntimeException ex) {
             throw new UserServiceException(UserServiceException.ExceptionType.SERVER_ERROR);
         }
