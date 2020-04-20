@@ -6,13 +6,17 @@ services:
   mongo:
     image: mongo
     restart: always
+    container_name: mongo
     environment:
       MONGO_INITDB_DATABASE: 'test'
     ports:
     - '27017-27019:27017-27019'
+    volumes:
+    - ./data/mongo_data:/data/db
 
   mongo-express:
     image: mongo-express
+    container_name: mongo-express
     restart: always
     ports:
       - 8091:8081
@@ -28,8 +32,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     volumes:
-      - ./zk_data:/data
-      - ./zk_datalogs:/datalogs
+      - ./data/zk_data:/var/lib/zookeeper
   broker:
     image: confluentinc/cp-server
     hostname: broker
@@ -53,7 +56,23 @@ services:
       CONFLUENT_METRICS_ENABLE: 'true'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
     volumes:
-      - ./kafka_data:/var/lib/kafka/data
+      - ./data/kafka_data:/var/lib/kafka/data
+
+
+  schema-registry:
+    image: confluentinc/cp-schema-registry
+    hostname: schema-registry
+    container_name: schema-registry
+    depends_on:
+      - zookeeper
+      - broker
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
+
+
 
   control-center:
     image: confluentinc/cp-enterprise-control-center
@@ -62,6 +81,7 @@ services:
     depends_on:
       - zookeeper
       - broker
+      - schema-registry
     ports:
       - "9021:9021"
     environment:
@@ -75,7 +95,4 @@ services:
 
 
 
-volumes:
-  mongodb_master_data:
-    driver: local
 
