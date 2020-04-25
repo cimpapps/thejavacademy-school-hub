@@ -12,7 +12,7 @@ public class UserServiceException extends RuntimeException {
     public enum ExceptionType {
         USER_NOT_FOUND(1, "User not found"),
         SERVER_ERROR(500, "something went wrong"),
-        EMTPY_USER_ID(400, "the ID is mandatory"),
+        EMPTY_USER_ID(400, "the ID is mandatory"),
         ;
 
         int code;

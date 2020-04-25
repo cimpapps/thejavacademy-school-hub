@@ -1,20 +1,24 @@
 package com.thejavacademy.userservice.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.thejavacademy.userservice.model.dto.UserContact;
-import com.thejavacademy.userservice.model.dto.UserIdentity;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Data
+@Entity
+@NoArgsConstructor
 public class User {
 
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String id;
     private String username;
+    @Column(name="lastname")
     private String lastName;
+    @Column(name="firstname")
     private String firstName;
     private String profilePicture;
     private String email;
