@@ -31,7 +31,7 @@ class UserServiceGetFriendsTest {
     static class TestConfig {
         @Bean
         public UserService userService(UserStorageAdapter userStorageAdapter) {
-            return new UserServiceImpl(userStorageAdapter);
+            return new UserService(userStorageAdapter);
         }
     }
 
@@ -77,7 +77,7 @@ class UserServiceGetFriendsTest {
     @ValueSource(strings = {"     ", ""})
     @NullSource
     public void givenUserIdNull_whenGetFriends_expectedThrownUserServiceException(String id) {
-        assertThrowsType(UserServiceException.ExceptionType.EMTPY_USER_ID, () -> userService.getFriends(id));
+        assertThrowsType(UserServiceException.ExceptionType.EMPTY_USER_ID, () -> userService.getFriends(id));
     }
 
     public void assertThrowsType(UserServiceException.ExceptionType type, Runnable runnable) {
