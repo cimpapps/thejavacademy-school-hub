@@ -1,5 +1,6 @@
 package com.thejavacademy.userservice.service;
 
+import com.thejavacademy.userservice.exception.UserServiceException;
 import com.thejavacademy.userservice.model.dto.FriendshipRequest;
 import com.thejavacademy.userservice.model.entity.Friendship;
 
@@ -9,8 +10,8 @@ public interface FriendshipStorageAdapter<Serializable> {
 
 
     List<Friendship> getFriendships(String id);
-    Friendship getRelation(String userOneId, String userTwoId);
-    Friendship save(Friendship friendship);
-    void delete(Friendship friendship);
+    Friendship getFriendship(String userOneId, String userTwoId);
+    Friendship create(Friendship friendship);
+    void delete(Friendship friendship) throws UserServiceException;
     void updateFriendship(FriendshipRequest friendshipRequest);
 }

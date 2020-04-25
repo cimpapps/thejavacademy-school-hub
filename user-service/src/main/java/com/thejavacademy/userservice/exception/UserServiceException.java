@@ -13,7 +13,8 @@ public class UserServiceException extends RuntimeException {
         USER_NOT_FOUND(1, "User not found"),
         SERVER_ERROR(500, "something went wrong"),
         EMPTY_USER_ID(400, "the ID is mandatory"),
-        ;
+        FRIENDSHIP_EXISTS(409, "friendship already exists"),
+        FRIENDSHIP_DOES_NOT_EXISTS(409, "doesn't exists");
 
         int code;
         String message;

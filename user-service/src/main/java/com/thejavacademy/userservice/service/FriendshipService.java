@@ -10,7 +10,7 @@ import java.util.List;
 public interface FriendshipService {
 
     List<Friendship> getFriendships(String id);
-    Friendship getRelation(String userOneId, String userTwoId);
+    Friendship getFriendship(String userOneId, String userTwoId);
     void updateFriendship(FriendshipRequest friendshipRequest);
     void delete(Friendship friendship);
 

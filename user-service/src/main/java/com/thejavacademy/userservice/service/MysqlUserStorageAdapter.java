@@ -2,17 +2,14 @@ package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.exception.FriendshipServiceException;
 import com.thejavacademy.userservice.exception.UserServiceException;
-import com.thejavacademy.userservice.mapper.UserToSearchedUserMapper;
+import com.thejavacademy.userservice.mapper.UserMapper;
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.SearchedUser;
 import com.thejavacademy.userservice.model.entity.Friendship;
 import com.thejavacademy.userservice.model.entity.User;
-import com.thejavacademy.userservice.repo.MySqlFriendshipRepository;
 import com.thejavacademy.userservice.repo.MySqlUserRepo;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -55,7 +52,7 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
 
     @Override
     public Friendship getRelationship(String userOneId, String userTwoId){
-        Friendship friendship = friendshipStorageAdapter.getRelation(userOneId, userTwoId);
+        Friendship friendship = friendshipStorageAdapter.getFriendship(userOneId, userTwoId);
         if(friendship == null ) throw  new FriendshipServiceException(FriendshipServiceException.ExceptionType.FRIENDSHIP_NOT_FOUND);
         return friendship;
     }
@@ -83,7 +80,7 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
         List<Friendship> listOfFriendships= friendshipStorageAdapter.getFriendships(id);
         List<String> usersIds = extractFriendsIds(listOfFriendships, id);
         List<User> listOfFriends = userRepo.findByIdIn(usersIds);
-        List<SearchedUser> searchedUsers = listOfFriends.stream().map(UserToSearchedUserMapper::entityToDto)
+        List<SearchedUser> searchedUsers = listOfFriends.stream().map(UserMapper::entityToDto)
                 .collect(Collectors.toList());
 
         searchUserResponse.setUsers(searchedUsers);

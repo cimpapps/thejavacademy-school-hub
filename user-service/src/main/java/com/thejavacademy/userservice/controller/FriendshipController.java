@@ -2,7 +2,6 @@ package com.thejavacademy.userservice.controller;
 
 import com.thejavacademy.userservice.model.dto.FriendshipRequest;
 import com.thejavacademy.userservice.model.entity.Friendship;
-import com.thejavacademy.userservice.model.entity.User;
 import com.thejavacademy.userservice.service.FriendshipService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +25,7 @@ public class FriendshipController {
 
     @GetMapping
     public ResponseEntity<Friendship> getFriendship(@PathVariable String userOneId, @PathVariable String userTwoId){
-        Friendship friendship = friendshipService.getRelation(userOneId,userTwoId);
+        Friendship friendship = friendshipService.getFriendship(userOneId,userTwoId);
         return new ResponseEntity<>(friendship, HttpStatus.OK);
     }
 }

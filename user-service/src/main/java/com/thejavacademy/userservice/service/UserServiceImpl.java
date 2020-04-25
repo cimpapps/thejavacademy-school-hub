@@ -1,19 +1,12 @@
 package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.exception.UserServiceException;
-import com.thejavacademy.userservice.mapper.UserToUserResponseMapper;
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.util.List;
-
 import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.EMPTY_USER_ID;
-import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.USER_NOT_FOUND;
 
 @Service
 public class UserServiceImpl implements UserService<String> {

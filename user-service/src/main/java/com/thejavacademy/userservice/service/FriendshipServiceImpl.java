@@ -21,8 +21,8 @@ public class FriendshipServiceImpl implements FriendshipService {
     }
 
     @Override
-    public Friendship getRelation(String userOneId, String userTwoId) {
-        return friendshipStorageAdapter.getRelation(userOneId, userTwoId);
+    public Friendship getFriendship(String userOneId, String userTwoId) {
+        return friendshipStorageAdapter.getFriendship(userOneId, userTwoId);
     }
 
     @Override

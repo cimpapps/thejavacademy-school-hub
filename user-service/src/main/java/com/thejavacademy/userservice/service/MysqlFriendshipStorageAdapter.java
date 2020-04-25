@@ -1,9 +1,7 @@
 package com.thejavacademy.userservice.service;
 
-import com.thejavacademy.userservice.exception.FriendshipServiceException;
 import com.thejavacademy.userservice.exception.UserServiceException;
 import com.thejavacademy.userservice.mapper.FriendshipRequestMapper;
-import com.thejavacademy.userservice.model.dto.ActionType;
 import com.thejavacademy.userservice.model.dto.FriendshipRequest;
 import com.thejavacademy.userservice.model.entity.Friendship;
 import com.thejavacademy.userservice.repo.MySqlFriendshipRepository;
@@ -11,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.*;
 
 @Service
 public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter<String> {
@@ -24,45 +24,38 @@ public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter<S
     @Override
     public List<Friendship> getFriendships(String id) {
         if (id == null || id.isBlank()) {
-            throw new UserServiceException(UserServiceException.ExceptionType.EMPTY_USER_ID);
+            throw new UserServiceException(EMPTY_USER_ID);
         }
-        List<Friendship> listOfFriendships = friendshipRepo.findFriendshipsById(id);
+        List<Friendship> listOfFriendships = friendshipRepo.findUserFriendhips(id);
         return listOfFriendships;
     }
 
     @Override
-    public Friendship getRelation(String userOneId, String userTwoId) {
-        Optional<Friendship> fOptional = friendshipRepo.findByUserOneIdAndUserTwoId(userOneId, userTwoId);
-        return null;
+    public Friendship getFriendship(String userOneId, String userTwoId) {
+        Friendship friendship = new Friendship();
+        friendship.setFriends(userOneId, userTwoId);
+        return friendshipRepo.findFriendship(friendship.getUserOneId(), friendship.getUserTwoId())
+                .orElse(new Friendship());
     }
 
     @Override
-    public Friendship save(Friendship friendship) {
-        Friendship saved = null;
-        Optional<Friendship> fOptional = friendshipRepo.findByUserOneIdAndUserTwoId(friendship.getUserOneId(), friendship.getUserTwoId());
-        if (fOptional.isEmpty()) {
-            saved = friendshipRepo.save(friendship);
-        }
-        return saved;
+    public Friendship create(Friendship friendship) {
+        return friendshipRepo.findFriendship(friendship.getUserOneId(), friendship.getUserTwoId())
+                .map(f -> friendshipRepo.save(friendship))
+                .orElseThrow(() -> new UserServiceException(FRIENDSHIP_EXISTS));
     }
 
     public void update(Friendship friendship) {
-        Friendship saved = null;
-        Optional<Friendship> fOptional = friendshipRepo.findByUserOneIdAndUserTwoId(friendship.getUserOneId(), friendship.getUserTwoId());
-        if (fOptional.isPresent()) {
-            saved = friendshipRepo.save(friendship);
-        }
+        friendshipRepo.findById(friendship.getId())
+                .map(f -> friendshipRepo.save(friendship))
+                .orElseThrow(() -> new UserServiceException(FRIENDSHIP_DOES_NOT_EXISTS));
     }
 
 
     @Override
-    public void delete(Friendship friendship) {
-        if (friendship == null) {
-            throw new FriendshipServiceException(FriendshipServiceException.ExceptionType.NULL_INSTANCE);
-        }
-        Optional<Friendship> fOptional = friendshipRepo.findByUserOneIdAndUserTwoId(friendship.getUserOneId(), friendship.getUserTwoId());
-        if (fOptional.isPresent())
-            friendshipRepo.delete(friendship);
+    public void delete(Friendship friendship) throws UserServiceException {
+        friendshipRepo.findById(friendship.getId())
+                .ifPresent(friendshipRepo::delete);
     }
 
     @Override
@@ -70,14 +63,15 @@ public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter<S
         Friendship friendship = FriendshipRequestMapper.dtoToEntity(friendshipRequest);
         switch (friendshipRequest.getActionType()) {
             case REQUESTED:
-                save(friendship);
+                create(friendship);
                 break;
             case ACCEPT:
                 update(friendship);
                 break;
             case DENIED:
+            case DELETE:
                 delete(friendship);
-
+                break;
             default:
                 throw new UnsupportedOperationException();
 
