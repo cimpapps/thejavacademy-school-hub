@@ -5,20 +5,21 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class UserServiceException extends RuntimeException {
-
+public class FriendshipServiceException extends RuntimeException {
     private ExceptionType type;
 
     public enum ExceptionType {
-        USER_NOT_FOUND(1, "User not found"),
+
+        FRIENDSHIP_NOT_FOUND(5171, "Friendship not found"),
         SERVER_ERROR(500, "something went wrong"),
-        EMPTY_USER_ID(400, "the ID is mandatory"),
+        EMPTY_ID(400, "the ID is mandatory"),
+        NULL_INSTANCE(5172,"Friendship object is null")
         ;
 
-        int code;
-        String message;
+        private int code;
+        private String message;
 
-        ExceptionType(int code, String message){
+        ExceptionType(int code, String message) {
             this.code = code;
             this.message = message;
         }
@@ -31,6 +32,4 @@ public class UserServiceException extends RuntimeException {
             return message;
         }
     }
-
-
 }

@@ -23,7 +23,7 @@ public class UserControllerAdvice extends ResponseEntityExceptionHandler {
             case SERVER_ERROR:
                 errorResponseEntity = new ResponseEntity<>(new ApiError(ex.getType().getCode(), ex.getType().getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
                 break;
-            case EMTPY_USER_ID:
+            case EMPTY_USER_ID:
                 errorResponseEntity = new ResponseEntity<>(new ApiError(ex.getType().getCode(), ex.getType().getMessage()), HttpStatus.BAD_REQUEST);
 
                 break;

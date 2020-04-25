@@ -2,12 +2,18 @@ package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.UserResponse;
+import com.thejavacademy.userservice.model.entity.User;
 
-public interface UserService {
+import java.io.Serializable;
 
-    SearchUserResponse searchUser(String term, int page, int limit);
+public interface UserService<T extends Serializable> {
 
-    SearchUserResponse getFriends(String id);
+//    SearchUserResponse searchUser(String term, int page, int limit);
+    SearchUserResponse searchUser(String term);
+
+    SearchUserResponse getFriends(T id);
+    User save(User user);
 
     UserResponse getUser(String id);
+    void deleteUser(String id);
 }
