@@ -17,15 +17,15 @@ public class FriendshipController {
         this.friendshipService = friendshipService;
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<FriendshipRequest> updateFriendship(@RequestBody FriendshipRequest friendshipRequest){
-       friendshipService.updateFriendship(friendshipRequest);
-       return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<FriendshipRequest> updateFriendship(@RequestBody FriendshipRequest friendshipRequest) {
+        friendshipService.updateFriendship(friendshipRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping
-    public ResponseEntity<Friendship> getFriendship(@PathVariable String userOneId, @PathVariable String userTwoId){
-        Friendship friendship = friendshipService.getFriendship(userOneId,userTwoId);
+    @GetMapping("/{userOneId}/{userTwoId}")
+    public ResponseEntity<Friendship> getFriendship(@PathVariable String userOneId, @PathVariable String userTwoId) {
+        Friendship friendship = friendshipService.getFriendship(userOneId, userTwoId);
         return new ResponseEntity<>(friendship, HttpStatus.OK);
     }
 }

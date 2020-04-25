@@ -2,16 +2,27 @@ package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.model.dto.FriendshipRequest;
 import com.thejavacademy.userservice.model.entity.Friendship;
-import com.thejavacademy.userservice.repo.MySqlFriendshipRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface FriendshipService {
+@Service
+public class FriendshipService {
 
-    List<Friendship> getFriendships(String id);
-    Friendship getFriendship(String userOneId, String userTwoId);
-    void updateFriendship(FriendshipRequest friendshipRequest);
-    void delete(Friendship friendship);
+    private FriendshipStorageAdapter friendshipStorageAdapter;
+
+    public FriendshipService(FriendshipStorageAdapter friendshipStorageAdapter) {
+        this.friendshipStorageAdapter = friendshipStorageAdapter;
+    }
+
+
+    public Friendship getFriendship(String userOneId, String userTwoId) {
+        return friendshipStorageAdapter.getFriendship(userOneId, userTwoId);
+    }
+
+    public void updateFriendship(FriendshipRequest friendshipRequest) {
+        friendshipStorageAdapter.updateFriendship(friendshipRequest);
+    }
 
 }

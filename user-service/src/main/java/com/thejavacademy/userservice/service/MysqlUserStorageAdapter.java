@@ -15,7 +15,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
+public class MysqlUserStorageAdapter implements UserStorageAdapter {
 
     private MySqlUserRepo userRepo;
     private MysqlFriendshipStorageAdapter friendshipStorageAdapter;
@@ -33,7 +33,7 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
 
     @Override
     public User save(User user) {
-        if(user == null){
+        if (user == null) {
             throw new UserServiceException(UserServiceException.ExceptionType.USER_NOT_FOUND);
         }
         return userRepo.save(user);
@@ -45,26 +45,7 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
         userRepo.delete(user);
     }
 
-    @Override
-    public boolean areTheyFriends(String userOneId, String userTwoId) {
-        return false;
-    }
 
-    @Override
-    public Friendship getRelationship(String userOneId, String userTwoId){
-        Friendship friendship = friendshipStorageAdapter.getFriendship(userOneId, userTwoId);
-        if(friendship == null ) throw  new FriendshipServiceException(FriendshipServiceException.ExceptionType.FRIENDSHIP_NOT_FOUND);
-        return friendship;
-    }
-
-    @Override
-    public boolean areTheyInARelationship(String userOneId, String userTwoId) {
-        List<Friendship> friendships = friendshipStorageAdapter.getFriendships(userOneId);
-        if(!friendships.isEmpty()) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public SearchUserResponse searchUser(String term) {
@@ -77,23 +58,22 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter<String>{
     public SearchUserResponse getUserFriends(String id) {
         SearchUserResponse searchUserResponse = new SearchUserResponse();
 
-        List<Friendship> listOfFriendships= friendshipStorageAdapter.getFriendships(id);
+        List<Friendship> listOfFriendships = friendshipStorageAdapter.getFriendships(id);
         List<String> usersIds = extractFriendsIds(listOfFriendships, id);
         List<User> listOfFriends = userRepo.findByIdIn(usersIds);
         List<SearchedUser> searchedUsers = listOfFriends.stream().map(UserMapper::entityToDto)
                 .collect(Collectors.toList());
 
         searchUserResponse.setUsers(searchedUsers);
-       return searchUserResponse;
+        return searchUserResponse;
     }
 
     /**
-     *
      * @param -friendshipList
      * @param -idOfUserWhichWeAreSearchingFriendsFor - index which we are searching friends for
      * @return returneza indexul prietenilor lui idOfUserWhichWeAreSearchingFriendsFor
      */
-    private List<String> extractFriendsIds(List<Friendship> friendshipList, String currentUserId){
+    private List<String> extractFriendsIds(List<Friendship> friendshipList, String currentUserId) {
         return friendshipList.stream()
                 .map(friendship -> friendship.getFriendId(currentUserId))
                 .collect(Collectors.toList());

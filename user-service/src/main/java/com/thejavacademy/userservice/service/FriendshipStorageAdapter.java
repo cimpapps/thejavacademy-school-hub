@@ -6,7 +6,7 @@ import com.thejavacademy.userservice.model.entity.Friendship;
 
 import java.util.List;
 
-public interface FriendshipStorageAdapter<Serializable> {
+public interface FriendshipStorageAdapter{
 
 
     List<Friendship> getFriendships(String id);

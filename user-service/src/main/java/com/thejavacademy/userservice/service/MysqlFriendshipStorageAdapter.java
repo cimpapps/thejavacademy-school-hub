@@ -13,7 +13,7 @@ import java.util.Optional;
 import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.*;
 
 @Service
-public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter<String> {
+public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter {
 
     MySqlFriendshipRepository friendshipRepo;
 

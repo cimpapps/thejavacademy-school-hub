@@ -20,14 +20,6 @@ public class UserRestController {
     }
     
 
-    @GetMapping("/search")
-    public ResponseEntity<SearchUserResponse> searchUser(@RequestParam String term) {
-        System.out.println("am intrat in controller searchUser()");
-        final SearchUserResponse users = userService.searchUser(term);
-        System.out.println(users);
-        return ResponseEntity.ok(users);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUser(id));
@@ -46,5 +38,8 @@ public class UserRestController {
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
+    //TODO update user with PUT
 
+
+    //TODO delete
 }

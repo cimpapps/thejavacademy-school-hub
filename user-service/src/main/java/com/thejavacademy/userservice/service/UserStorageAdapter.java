@@ -8,21 +8,15 @@ import org.springframework.data.domain.PageRequest;
 import java.io.Serializable;
 import java.util.Optional;
 
-public interface UserStorageAdapter<T extends Serializable> {
-//    SearchUserResponse searchUser(String term, PageRequest pageRequest);
+public interface UserStorageAdapter {
     SearchUserResponse searchUser(String term);
 
-    SearchUserResponse getUserFriends(T idOne);
+    SearchUserResponse getUserFriends(String idOne);
 
-    Optional<User> getUserById(T id);
+    Optional<User> getUserById(String id);
 
     User save(User user);
 
     void deleteUser(String id);
-
-    Friendship getRelationship(String userOneId, String userTwoId);
-    boolean areTheyFriends(String userOneId, String userTwoId);
-    boolean areTheyInARelationship(String userOneId, String userTwoId);
-
 
 }

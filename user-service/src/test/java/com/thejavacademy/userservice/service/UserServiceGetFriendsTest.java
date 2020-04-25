@@ -31,7 +31,7 @@ class UserServiceGetFriendsTest {
     static class TestConfig {
         @Bean
         public UserService userService(UserStorageAdapter userStorageAdapter) {
-            return new UserServiceImpl(userStorageAdapter);
+            return new UserService(userStorageAdapter);
         }
     }
 

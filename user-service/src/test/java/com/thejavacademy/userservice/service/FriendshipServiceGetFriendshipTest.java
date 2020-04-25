@@ -12,7 +12,7 @@ public class FriendshipServiceGetFriendshipTest {
 
 
     final FriendshipStorageAdapter storageAdapter = Mockito.mock(FriendshipStorageAdapter.class);
-    FriendshipService service = new FriendshipServiceImpl(storageAdapter);
+    FriendshipService service = new FriendshipService(storageAdapter);
 
 
     @Test
