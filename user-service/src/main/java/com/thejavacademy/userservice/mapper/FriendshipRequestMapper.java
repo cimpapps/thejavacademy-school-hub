@@ -27,7 +27,7 @@ public class FriendshipRequestMapper {
         FriendshipEvent friendshipEvent = new FriendshipEvent();
         friendshipEvent.setFrom(friendshipRequest.getTriggeredBy());
         friendshipEvent.setTo(friendshipRequest.to());
-        friendshipEvent.setActionType(friendshipRequest.getActionType().name());
+        friendshipEvent.setActionType(mapActionType(friendshipRequest.getActionType()));
         return friendshipEvent;
     }
 
