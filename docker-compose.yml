@@ -33,9 +33,9 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-#    volumes:
-#      - ./data/zk_data:/var/lib/zookeeper/data
-#      - ./data/zk_logs:/var/lib/zookeeper/logs
+    volumes:
+      - ./data/zk_data:/var/lib/zookeeper/data
+      - ./data/zk_logs:/var/lib/zookeeper/log
   broker:
     image: confluentinc/cp-server
     hostname: broker
@@ -112,7 +112,7 @@ services:
     command: --init-file /data/application/start.sql
     volumes:
       - ./start.sql:/data/application/start.sql
-      - ./data/mysql:/var/lib/mysql
+      - ./data/mysql_data:/var/lib/mysql
 
 
   elastic:
@@ -129,6 +129,6 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - ./data/elastic:/usr/share/elasticsearch/data
+      - ./data/elastic_data:/usr/share/elasticsearch/data
     ports:
       - 9200:9200

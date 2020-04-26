@@ -43,11 +43,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId> org.elasticsearch.client</groupId>
-			<artifactId>elasticsearch-rest-high-level-client</artifactId>
-			<version>LATEST</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId> org.elasticsearch.client</groupId>-->
+<!--			<artifactId>elasticsearch-rest-high-level-client</artifactId>-->
+<!--			<version>LATEST</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,13 +96,18 @@
 			<scope>test</scope>
 		</dependency>
 
-
 		<dependency>
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-avro-serializer</artifactId>
 			<version>5.3.0</version>
 		</dependency>
 
+
+		<dependency>
+			<groupId>com.thejavacademy</groupId>
+			<artifactId>code-gen</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -114,6 +119,11 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+			<version>3.3.4.RELEASE</version>
 		</dependency>
 
 	</dependencies>

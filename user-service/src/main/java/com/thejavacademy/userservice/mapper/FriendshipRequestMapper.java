@@ -13,7 +13,7 @@ public class FriendshipRequestMapper {
         Friendship friendship = new Friendship();
         friendship.setFriends(friendshipRequest.getUserOneId(), friendshipRequest.getUserTwoId());
         friendship.setRelationshipStatus(friendshipRequest.getActionType());
-        friendship.setActionUserId(friendshipRequest.getTriggerdBy());
+        friendship.setActionUserId(friendshipRequest.getTriggeredBy());
         if (friendshipRequest.getId() == null && friendshipRequest.getActionType().equals(ActionType.REQUESTED)) {
             friendship.setId(UUID.randomUUID().toString());
         } else {

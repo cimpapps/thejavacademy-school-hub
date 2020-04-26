@@ -2,18 +2,17 @@ package com.thejavacademy.userservice.service;
 
 import com.thejavacademy.userservice.model.dto.FriendshipRequest;
 import com.thejavacademy.userservice.model.entity.Friendship;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class FriendshipService {
 
     private FriendshipStorageAdapter friendshipStorageAdapter;
+    private KafkaFriendshipService kafkaFriendshipService;
 
-    public FriendshipService(FriendshipStorageAdapter friendshipStorageAdapter) {
+    public FriendshipService(FriendshipStorageAdapter friendshipStorageAdapter, KafkaFriendshipService kafkaFriendshipService) {
         this.friendshipStorageAdapter = friendshipStorageAdapter;
+        this.kafkaFriendshipService = kafkaFriendshipService;
     }
 
 
@@ -23,6 +22,8 @@ public class FriendshipService {
 
     public void updateFriendship(FriendshipRequest friendshipRequest) {
         friendshipStorageAdapter.updateFriendship(friendshipRequest);
+
+
     }
 
 }
