@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 public class FriendshipService {
 
     private FriendshipStorageAdapter friendshipStorageAdapter;
-    private KafkaFriendshipService kafkaFriendshipService;
+    private KafkaFriendshipProducer kafkaFriendshipProducer;
 
-    public FriendshipService(FriendshipStorageAdapter friendshipStorageAdapter, KafkaFriendshipService kafkaFriendshipService) {
+    public FriendshipService(FriendshipStorageAdapter friendshipStorageAdapter, KafkaFriendshipProducer kafkaFriendshipProducer) {
         this.friendshipStorageAdapter = friendshipStorageAdapter;
-        this.kafkaFriendshipService = kafkaFriendshipService;
+        this.kafkaFriendshipProducer = kafkaFriendshipProducer;
     }
 
 
@@ -23,7 +23,7 @@ public class FriendshipService {
 
     public void updateFriendship(FriendshipRequest friendshipRequest) {
         friendshipStorageAdapter.updateFriendship(friendshipRequest);
-        kafkaFriendshipService.sendFriendshipEvent(FriendshipRequestMapper.requestToEvent(friendshipRequest));
+        kafkaFriendshipProducer.sendFriendshipEvent(FriendshipRequestMapper.requestToEvent(friendshipRequest));
     }
 
 }

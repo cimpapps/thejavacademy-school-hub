@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class KafkaFriendshipService {
+public class KafkaFriendshipProducer {
 
     KafkaFriendshipConfigs friendshipConfigs;
 
     private KafkaTemplate<String, FriendshipEvent> kafkaTemplate;
 
-    public KafkaFriendshipService(KafkaTemplate<String, FriendshipEvent> kafkaTemplate) {
+    public KafkaFriendshipProducer(KafkaTemplate<String, FriendshipEvent> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
 
