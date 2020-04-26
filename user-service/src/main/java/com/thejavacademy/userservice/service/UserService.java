@@ -4,7 +4,10 @@ import com.thejavacademy.userservice.exception.UserServiceException;
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.EMPTY_USER_ID;
 
