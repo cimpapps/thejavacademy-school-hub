@@ -11,6 +11,11 @@ public class FriendshipRequest {
     private String userOneId;
     private String userTwoId;
     private ActionType actionType;
-    private String triggerdBy;
+    private String triggeredBy;
+
+
+    public String to() {
+        return triggeredBy.equals(userOneId) ? userTwoId : userOneId;
+    }
 
 }
