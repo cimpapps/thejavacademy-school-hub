@@ -14,7 +14,7 @@ public class FriendshipRequest {
     private String triggeredBy;
 
 
-    public String sentTo() {
+    public String to() {
         return triggeredBy.equals(userOneId) ? userTwoId : userOneId;
     }
 

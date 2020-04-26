@@ -1,0 +1,11 @@
+{
+    "type": "record",
+    "namespace": "com.thejavacademy.userservice.model.messages",
+    "name": "FriendshipEvent",
+    "doc": "This is a friendship",
+    "fields": [
+        {"name": "from", "type": "string"},
+        {"name": "to", "type": "string"},
+        {"name": "actionType", "type": {"type": "enum", "name": "ActionType", "symbols": ["REQUESTED", "ACCEPTED", "DELETED", "DENIED"]}}
+    ]
+}

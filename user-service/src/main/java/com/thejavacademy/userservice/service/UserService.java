@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public void deleteUser(String id) {
-        if(id == null || id.isBlank()){
+        if(id == null || id.trim().isEmpty()){
             throw new UserServiceException(EMPTY_USER_ID);
         }
         userStorageAdapter.deleteUser(id);

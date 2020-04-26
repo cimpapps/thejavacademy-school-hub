@@ -11,7 +11,7 @@ public class KafkaFriendshipConfigs {
     private String keySerializer;
     private String valueSerializer;
     private String topic;
-
+    private String schemaRegistryUrl;
 
     public String getBootstrapServers() {
         return bootstrapServers;
@@ -43,5 +43,13 @@ public class KafkaFriendshipConfigs {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+    public String getSchemaRegistryUrl() {
+        return schemaRegistryUrl;
+    }
+
+    public void setSchemaRegistryUrl(String schemaRegistryUrl) {
+        this.schemaRegistryUrl = schemaRegistryUrl;
     }
 }

@@ -23,7 +23,7 @@ public class MysqlFriendshipStorageAdapter implements FriendshipStorageAdapter {
 
     @Override
     public List<Friendship> getFriendships(String id) {
-        if (id == null || id.isBlank()) {
+        if (id == null || id.trim().isEmpty()) {
             throw new UserServiceException(EMPTY_USER_ID);
         }
         List<Friendship> listOfFriendships = friendshipRepo.findUserFriendhips(id);
