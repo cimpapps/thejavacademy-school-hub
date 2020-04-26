@@ -38,8 +38,15 @@ public class UserRestController {
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
-    //TODO update user with PUT
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        User savedUser = userService.save(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.OK);
+    }
 
-
-    //TODO delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    }
 }
