@@ -53,6 +53,12 @@
 			<groupId>com.thejavacademy</groupId>
 			<artifactId>code-gen</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.avro</groupId>
+					<artifactId>avro</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 
