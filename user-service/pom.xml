@@ -48,7 +48,6 @@
 			<version>5.4.1</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>com.thejavacademy</groupId>
 			<artifactId>code-gen</artifactId>
