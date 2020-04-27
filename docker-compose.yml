@@ -3,25 +3,25 @@ version: '3.1'
 services:
 
 ###############MONGO##############
-  mongo:
-    image: mongo
-    restart: always
-    container_name: mongo
-    environment:
-      MONGO_INITDB_DATABASE: 'test'
-    ports:
-    - '27017-27019:27017-27019'
-    volumes:
-    - ./data/mongo_data:/data/db
-
-  mongo-express:
-    image: mongo-express
-    container_name: mongo-express
-    restart: always
-    depends_on:
-      - mongo
-    ports:
-      - 8091:8081
+#  mongo:
+#    image: mongo
+#    restart: always
+#    container_name: mongo
+#    environment:
+#      MONGO_INITDB_DATABASE: 'test'
+#    ports:
+#    - '27017-27019:27017-27019'
+#    volumes:
+#    - ./data/mongo_data:/data/db
+#
+#  mongo-express:
+#    image: mongo-express
+#    container_name: mongo-express
+#    restart: always
+#    depends_on:
+#      - mongo
+#    ports:
+#      - 8091:8081
 
 ################KAFKA############
   zookeeper:
@@ -90,12 +90,28 @@ services:
     environment:
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:29092'
       CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      CONTROL_CENTER_SCHEMA_REGISTRY_URL: "http://schema-registry:8081"
       CONTROL_CENTER_REPLICATION_FACTOR: 1
       CONTROL_CENTER_INTERNAL_TOPICS_PARTITIONS: 1
       CONTROL_CENTER_MONITORING_INTERCEPTOR_TOPIC_PARTITIONS: 1
       CONFLUENT_METRICS_TOPIC_REPLICATION: 1
       PORT: 9021
 
+  rest-proxy:
+    image: confluentinc/cp-kafka-rest
+    depends_on:
+      - zookeeper
+      - broker
+      - schema-registry
+    ports:
+      - 8082:8082
+    hostname: rest-proxy
+    container_name: rest-proxy
+    environment:
+      KAFKA_REST_HOST_NAME: rest-proxy
+      KAFKA_REST_BOOTSTRAP_SERVERS: 'broker:29092'
+      KAFKA_REST_LISTENERS: "http://0.0.0.0:8082"
+      KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
 
 
   mysql:
@@ -113,22 +129,22 @@ services:
     volumes:
       - ./start.sql:/data/application/start.sql
       - ./data/mysql_data:/var/lib/mysql
-
-
-  elastic:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
-    container_name: elastic
-    environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - cluster.initial_master_nodes=es01
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - ./data/elastic_data:/usr/share/elasticsearch/data
-    ports:
-      - 9200:9200
+#
+#
+#  elastic:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.6.2
+#    container_name: elastic
+#    environment:
+#      - node.name=es01
+#      - cluster.name=es-docker-cluster
+#      - cluster.initial_master_nodes=es01
+#      - bootstrap.memory_lock=true
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#    volumes:
+#      - ./data/elastic_data:/usr/share/elasticsearch/data
+#    ports:
+#      - 9200:9200
