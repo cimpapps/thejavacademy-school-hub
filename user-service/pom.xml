@@ -26,6 +26,10 @@
 			<id>conf2</id>
 			<url>https://maven.repository.redhat.com/earlyaccess/all/</url>
 		</repository>
+		<repository>
+			<id>cpckg</id>
+			<url>https://packages.confluent.io/maven/</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -37,6 +41,25 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-avro-serializer</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.thejavacademy</groupId>
+			<artifactId>code-gen</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.avro</groupId>
+					<artifactId>avro</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -97,19 +120,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>io.confluent</groupId>
-			<artifactId>kafka-avro-serializer</artifactId>
-			<version>5.3.0</version>
-		</dependency>
-
-
-		<dependency>
-			<groupId>com.thejavacademy</groupId>
-			<artifactId>code-gen</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-
-		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>2.9.2</version>
@@ -120,16 +130,7 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		<dependency>
-			<groupId>io.projectreactor</groupId>
-			<artifactId>reactor-core</artifactId>
-			<version>3.3.4.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.parquet</groupId>
-			<artifactId>parquet-avro</artifactId>
-			<version>1.10.1</version>
-		</dependency>
+
 	</dependencies>
 
 	<build>
