@@ -5,13 +5,16 @@ import com.thejavacademy.userservice.exception.UserServiceException;
 import com.thejavacademy.userservice.mapper.UserMapper;
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.SearchedUser;
+import com.thejavacademy.userservice.model.dto.UserIdentity;
 import com.thejavacademy.userservice.model.entity.Friendship;
 import com.thejavacademy.userservice.model.entity.User;
 import com.thejavacademy.userservice.repo.MySqlUserRepo;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,15 +39,27 @@ public class MysqlUserStorageAdapter implements UserStorageAdapter {
         if (user == null) {
             throw new UserServiceException(UserServiceException.ExceptionType.USER_NOT_FOUND);
         }
+        if(user.getId() == null || user.getId().trim().isEmpty()){
+            user.setId(UUID.randomUUID().toString());
+        }
         return userRepo.save(user);
     }
 
     @Override
     public void deleteUser(String id) {
-        User user = userRepo.findById(id).orElseThrow(() -> new UserServiceException(UserServiceException.ExceptionType.USER_NOT_FOUND));
+        User user = userRepo.findById(id).orElseThrow(() -> new UserServiceException(UserServiceException
+                .ExceptionType.USER_NOT_FOUND));
         userRepo.delete(user);
     }
 
+    //TODO:delete this method after testing
+    @Override
+    public List<UserIdentity> getUsers() {
+        List<User>users = userRepo.findAll();
+        return  users.stream()
+                .map(user -> UserMapper.buildUserIdentity(user))
+                .collect(Collectors.toList());
+    }
 
 
     @Override

@@ -1,6 +1,7 @@
 package com.thejavacademy.userservice.controller;
 
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
+import com.thejavacademy.userservice.model.dto.UserIdentity;
 import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
 import com.thejavacademy.userservice.service.UserService;
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
@@ -18,7 +22,12 @@ public class UserRestController {
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
-    
+
+    //TODO:delete this method after testing
+    @GetMapping
+    public List<UserIdentity> getUsers(){
+        return userService.getUsers();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
