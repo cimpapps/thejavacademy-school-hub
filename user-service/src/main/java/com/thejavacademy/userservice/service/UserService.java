@@ -31,9 +31,7 @@ public class UserService {
         this.kafkaUserProducer = kafkaUserProducer;
     }
 
-    public UserService(UserStorageAdapter userStorageAdapter) {
 
-    }
 
 
     public UserResponse getUser(String id) {
@@ -45,6 +43,7 @@ public class UserService {
     }
 
     public void deleteUser(String id) {
+        userStorageAdapter.getUserById("");
         if(id == null || id.trim().isEmpty()){
             throw new UserServiceException(EMPTY_USER_ID);
         }

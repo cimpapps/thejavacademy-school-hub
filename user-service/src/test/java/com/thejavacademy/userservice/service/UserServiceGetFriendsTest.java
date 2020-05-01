@@ -24,16 +24,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
-@ExtendWith(SpringExtension.class)
+//@ExtendWith(SpringExtension.class)
 class UserServiceGetFriendsTest {
 
-    @TestConfiguration
-    static class TestConfig {
-        @Bean
-        public UserService userService(UserStorageAdapter userStorageAdapter) {
-            return new UserService(userStorageAdapter);
-        }
-    }
+//    @TestConfiguration
+//    static class TestConfig {
+//        @Bean
+//        public UserService userService(UserStorageAdapter userStorageAdapter) {
+//            return new UserService(userStorageAdapter);
+//        }
+//    }
 
     @Autowired
     UserService userService;
