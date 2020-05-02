@@ -6,18 +6,15 @@ import com.thejavacademy.userservice.model.dto.SearchUserResponse;
 import com.thejavacademy.userservice.model.dto.UserIdentity;
 import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
-import com.thejavacademy.userservice.model.messages.UserEvent;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.EMPTY_USER_ID;
 import static com.thejavacademy.userservice.exception.UserServiceException.ExceptionType.USER_NOT_FOUND;
+
 @Slf4j
 @Service
 public class UserService {
@@ -50,18 +47,17 @@ public class UserService {
         userStorageAdapter.deleteUser(id);
     }
 
-
-
-    //TODO not sure what to do here. Ask about blbla
     public SearchUserResponse getFriends(String id) {
-        Optional<User> userOptional = userStorageAdapter.getUserById(id);
-        if(userOptional.isPresent()) {
-            kafkaUserProducer.sendUserEvent(UserMapper.userToUserEvent(userOptional.get()));
-            log.info("User sent to topic");
+        if (id == null || id.trim().isEmpty()) {
+            throw new UserServiceException(EMPTY_USER_ID);
         }
-        return userStorageAdapter.getUserFriends(id);
+        userStorageAdapter.getUserById(id).orElseThrow(() -> new UserServiceException(USER_NOT_FOUND));
+        try {
+            return userStorageAdapter.getUserFriends(id);
+        } catch (Exception ex) {
+            throw new UserServiceException(UserServiceException.ExceptionType.SERVER_ERROR);
+        }
     }
-
     public User save(User user) {
         return userStorageAdapter.save(user);
     }

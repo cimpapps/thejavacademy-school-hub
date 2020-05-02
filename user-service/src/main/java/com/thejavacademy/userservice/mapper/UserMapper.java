@@ -22,7 +22,7 @@ public class UserMapper {
         return searchedUser;
     }
 
-    public static UserEvent userToUserEvent(User user){
+    public static UserEvent toUserEvent(User user){
         UserEvent userEvent = new UserEvent();
         if(user != null){
             userEvent.setId(user.getId());
