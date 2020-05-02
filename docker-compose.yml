@@ -114,21 +114,21 @@ services:
       KAFKA_REST_SCHEMA_REGISTRY_URL: 'http://schema-registry:8081'
 
 
-  mysql:
-    image: mysql
-    restart: always
-    container_name: mysql
-    environment:
-      MYSQL_USER: 'root'
-      MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'usvc'
-      MYSQL_PASSWORD: 'root'
-    ports:
-      - 3306:3306
-    command: --init-file /data/application/start.sql
-    volumes:
-      - ./start.sql:/data/application/start.sql
-      - ./data/mysql_data:/var/lib/mysql
+#  mysql:
+#    image: mysql
+#    restart: always
+#    container_name: mysql
+#    environment:
+#      MYSQL_USER: 'root'
+#      MYSQL_ROOT_PASSWORD: 'root'
+#      MYSQL_DATABASE: 'usvc'
+#      MYSQL_PASSWORD: 'root'
+#    ports:
+#      - 3306:3306
+#    command: --init-file /data/application/start.sql
+#    volumes:
+#      - ./start.sql:/data/application/start.sql
+#      - ./data/mysql_data:/var/lib/mysql
 #
 #
 #  elastic:

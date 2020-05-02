@@ -4,8 +4,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "kafka.producer.friendship")
-public class KafkaFriendshipConfigs {
+@ConfigurationProperties(prefix = "kafka.producer.user")
+public class KafkaUserConfigs {
 
     private String bootstrapServers;
     private String keySerializer;
@@ -52,6 +52,4 @@ public class KafkaFriendshipConfigs {
     public void setSchemaRegistryUrl(String schemaRegistryUrl) {
         this.schemaRegistryUrl = schemaRegistryUrl;
     }
-
-
 }

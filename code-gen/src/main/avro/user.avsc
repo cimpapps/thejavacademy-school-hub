@@ -1,0 +1,14 @@
+{
+    "type": "record",
+    "namespace": "com.thejavacademy.userservice.model.messages",
+    "name": "UserEvent",
+    "doc": "This is a User",
+    "fields": [
+        {"name": "id", "type": "string"},
+        {"name": "username", "type": "string"},
+        {"name": "lastName", "type": "string"},
+        {"name": "profilePicture", "type": "string"},
+        {"name": "email", "type": "string"},
+        {"name": "phoneNumber", "type": "string"}
+    ]
+}

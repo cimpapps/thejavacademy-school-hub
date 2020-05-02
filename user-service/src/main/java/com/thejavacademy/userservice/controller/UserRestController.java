@@ -1,6 +1,7 @@
 package com.thejavacademy.userservice.controller;
 
 import com.thejavacademy.userservice.model.dto.SearchUserResponse;
+import com.thejavacademy.userservice.model.dto.UserIdentity;
 import com.thejavacademy.userservice.model.dto.UserResponse;
 import com.thejavacademy.userservice.model.entity.User;
 import com.thejavacademy.userservice.service.UserService;
@@ -8,6 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
@@ -18,7 +22,12 @@ public class UserRestController {
     public UserRestController(UserService userService) {
         this.userService = userService;
     }
-    
+
+    //TODO:delete this method after testing
+    @GetMapping
+    public List<UserIdentity> getUsers(){
+        return userService.getUsers();
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
@@ -38,8 +47,15 @@ public class UserRestController {
         return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
-    //TODO update user with PUT
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody User user){
+        User savedUser = userService.save(user);
+        return new ResponseEntity<>(savedUser, HttpStatus.OK);
+    }
 
-
-    //TODO delete
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable String id){
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+    }
 }
