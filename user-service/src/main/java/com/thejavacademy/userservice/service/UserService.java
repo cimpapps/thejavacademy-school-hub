@@ -62,7 +62,6 @@ public class UserService {
         return userStorageAdapter.save(user);
     }
 
-    //TODO:delete this method after testing
     public List<UserIdentity> getUsers() {
         return userStorageAdapter.getUsers();
     }
