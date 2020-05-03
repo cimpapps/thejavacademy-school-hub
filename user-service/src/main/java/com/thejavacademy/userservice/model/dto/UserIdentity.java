@@ -19,6 +19,7 @@ public class UserIdentity {
     @JsonProperty(required = true)
     private String lastName;
     private String firstName;
+    private String email;
     private String profilePicture;
 
 }
