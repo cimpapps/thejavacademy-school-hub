@@ -61,6 +61,7 @@ public class UserService {
             throw new UserServiceException(UserServiceException.ExceptionType.SERVER_ERROR);
         }
     }
+
     public User save(User user) {
         final User dbUser = userStorageAdapter.save(user);
         esUserStorageAdapter.save(user);

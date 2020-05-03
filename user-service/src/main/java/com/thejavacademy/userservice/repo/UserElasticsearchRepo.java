@@ -73,7 +73,8 @@ public class UserElasticsearchRepo {
         query.should(matchQuery(USERNAME, term).fuzziness(Fuzziness.AUTO))
                 .should(matchQuery(EMAIL, term).fuzziness(Fuzziness.AUTO))
                 .should(matchQuery(FIRST_NAME, term).fuzziness(Fuzziness.AUTO))
-                .should(matchQuery(LAST_NAME, term).fuzziness(Fuzziness.AUTO));
+                .should(matchQuery(LAST_NAME, term).fuzziness(Fuzziness.AUTO))
+                .minimumShouldMatch(1);
 
         searchSourceBuilder.query(query);
         searchRequest.source(searchSourceBuilder);
