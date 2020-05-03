@@ -32,6 +32,14 @@
 			<id>cpckg</id>
 			<url>https://packages.confluent.io/maven/</url>
 		</repository>
+		<repository>
+			<id>elastic-lucene-snapshots</id>
+			<name>Elastic Lucene Snapshots</name>
+			<url>https://s3.amazonaws.com/download.elasticsearch.org/lucenesnapshots/83f9835</url>
+			<releases><enabled>true</enabled></releases>
+			<snapshots><enabled>false</enabled></snapshots>
+		</repository>
+
 	</repositories>
 
 	<dependencies>
