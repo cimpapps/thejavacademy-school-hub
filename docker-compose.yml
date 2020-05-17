@@ -121,7 +121,7 @@ services:
     environment:
       MYSQL_USER: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'usvc'
+      MYSQL_DATABASE: 'test_hub'
       MYSQL_PASSWORD: 'root'
     ports:
       - 3306:3306
@@ -157,3 +157,21 @@ services:
       ELASTICSEARCH_HOSTS: http://elastic:9200
     depends_on:
       - elastic
+
+
+#
+#  user-service:
+#    container_name: user-service
+#    build:
+#      context: user-service
+#      dockerfile: Dockerfile
+#    ports:
+#    - 7771:7771
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/test_hub
+#      KAFKA_PRODUCER_FRIENDSHIP_BOOTSTRAP-SERVERS: broker:9092
+#      KAFKA_PRODUCER_USER_BOOTSTRAP-SERVERS: broker:9092
+#    depends_on:
+#      - mysql
+#      - broker
+#      - elastic
