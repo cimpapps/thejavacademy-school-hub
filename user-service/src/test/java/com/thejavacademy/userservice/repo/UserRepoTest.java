@@ -25,6 +25,7 @@ public class UserRepoTest {
     @Autowired
     private MySqlUserRepo mySqlUserRepo;
 
+
     @Test
     public void testSave_whenSaveUserNoId_expectException() {
         User user = new User();
@@ -35,7 +36,7 @@ public class UserRepoTest {
     @Test
     public void test_whenSaveWithNullUsername_expectException() {
         User user = generateRandomUser(UUID.randomUUID().toString());
-        user.setUsername(null);
+//        user.setUsername(null);
         Assertions.assertThrows(Exception.class, () -> mySqlUserRepo.saveAndFlush(user));
     }
 
