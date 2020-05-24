@@ -21,6 +21,12 @@ pipeline {
             }
         }
 
+        stage ('elastic') {
+            steps {
+                echo ' I search like no other'
+            }
+        }
+
         stage ('docker build') {
             steps {
                 script {
