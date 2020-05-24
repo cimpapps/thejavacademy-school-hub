@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('scm pull') {
             steps{
-                git branch: 'elasticsearch', credentialsId: 'git-creds', url: 'https://github.com/cimpapps/thejavacademy-school-hub.git'
+                git branch: 'master', credentialsId: 'git-creds', url: 'https://github.com/cimpapps/thejavacademy-school-hub.git'
             }
         }
         stage ('build') {
