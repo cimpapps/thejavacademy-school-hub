@@ -30,6 +30,7 @@ public class UserRepoTest {
     public void testSave_whenSaveUserNoId_expectException() {
         User user = new User();
         Assertions.assertThrows(JpaSystemException.class, () -> mySqlUserRepo.save(user));
+
     }
 
 
