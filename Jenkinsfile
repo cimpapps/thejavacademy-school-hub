@@ -30,7 +30,8 @@ pipeline {
             steps {
                 script {
                     DOCKER_TAG = 'docker.io/cimbonda/user-service:$BUILD_ID-$BUILD_NUMBER'
-                    sh 'cd user-service; docker build . -t $DOCKER_TAG'
+                    println DOCKER_TAG
+                    sh "cd user-service; docker build . -t ${DOCKER_TAG}"
                 }
             }
         }
@@ -40,5 +41,6 @@ pipeline {
                 sh "docker push ${DOCKER_TAG}"
             }
         }
+
     }
 }
