@@ -7,6 +7,11 @@ pipeline {
     }
 
     stages {
+        stage ('hello') {
+            steps {
+                echo 'HELLO WORLD'
+            }
+        }
         stage ('build') {
             steps {
                 sh 'cd user-service; mvn clean package'
