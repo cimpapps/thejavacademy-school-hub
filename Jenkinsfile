@@ -8,6 +8,7 @@ pipeline {
 
     stages {
         stage('scm pull') {
+
             steps{
                 git branch: 'master', credentialsId: 'git-creds', url: 'https://github.com/cimpapps/thejavacademy-school-hub.git'
             }
